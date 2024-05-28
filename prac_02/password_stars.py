@@ -7,6 +7,7 @@ PASSWORD_LENGTH_MIN = 10
 
 
 def main():
+    """Main function to get a password and print a row of stars."""
     password = get_password()
     print_stars(password)
 
