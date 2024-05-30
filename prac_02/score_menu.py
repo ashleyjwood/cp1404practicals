@@ -5,8 +5,6 @@ This script is a menu that allows you to:
     - Display a row of stars which is the same length as your score
 """
 
-# TODO: Implement number validation
-
 # CONSTANTS
 MENU = """- (G)et a valid score
 - (P)rint result
@@ -15,6 +13,7 @@ MENU = """- (G)et a valid score
 
 
 def main():
+    """Get a valid score from the user, return a result, and print stars based on the score."""
     score = None
     print(MENU)
     choice = input(">>> ").upper()
@@ -40,13 +39,15 @@ def main():
 
 def get_valid_score():
     """Get a score from the user and check if it is valid."""
-    score = float(input("Enter score: "))
-    if 0 <= score <= 100:
-        score = score
-    else:
+    try:
+        score = float(input("Enter score: "))
+        if 0 <= score <= 100:
+            return score
         print("Score must be between 0 and 100")
         score = None
-    return score
+    except ValueError:
+        print("Invalid input")
+    return None
 
 
 def print_score_status(score):
