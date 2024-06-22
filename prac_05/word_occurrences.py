@@ -1,7 +1,7 @@
 """
 Word Occurrences
 Estimate:   30 minutes
-Actual:
+Actual:     ~20 minutes (got distracted with B99, lost track of time)
 """
 
 text = input("Enter a sentence: ").lower()
@@ -14,5 +14,7 @@ for word in words:
     else:
         occurrences[word] = 1
 
+max_width = max(len(word) for word in occurrences)
+
 for word in sorted(occurrences):
-    print(f"{word} : {occurrences[word]}")
+    print(f"{word:{max_width}} : {occurrences[word]}")
