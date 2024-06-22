@@ -4,6 +4,11 @@ from kivy.properties import StringProperty
 from kivy.uix.button import Button
 
 
+def handle_name_button(instance):
+    """Handle presses on the name button to greet people."""
+    print("Hello", instance.text)
+
+
 class KivyDemo(App):
     """Kivy program to demo some basic interactive functionality."""
     status_text = StringProperty("Hello. Click the buttons :)")
@@ -20,13 +25,9 @@ class KivyDemo(App):
         self.root = Builder.load_file('kivy_layout.kv')
         for name in self.names:
             button = Button(text=name)
-            button.bind(on_press=self.handle_name_button)
+            button.bind(on_press=handle_name_button)
             self.root.ids.names_box.add_widget(button)
         return self.root
-
-    def handle_name_button(self, instance):
-        """Handle presses on the name button to greet people."""
-        print("Hello", instance.text)
 
     def handle_press(self, amount):
         """Handle presses on the up/down buttons to change counter."""
