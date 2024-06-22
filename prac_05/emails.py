@@ -7,6 +7,7 @@ email_to_name = {}
 
 
 def main():
+    """Print a list of name, email pairs as entered by the user."""
     email = input("Email: ")
     while email != "":
         name = extract_name_from_email(email)
@@ -23,10 +24,12 @@ def main():
 
 
 def extract_name_from_email(email):
+    """Extract name from email."""
     return " ".join(email.split('@')[0].split(".")).title()
 
 
 def print_pairs():
+    """Print name, email pairs."""
     for email, name in email_to_name.items():
         print(f"{name} ({email})")
 
