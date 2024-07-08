@@ -14,6 +14,6 @@ class Guitar:
     def is_vintage(self, current_year):
         return self.get_age(current_year) >= 50
 
-    def __str__(self):
+    def __repr__(self):
         """Return a string representation of the instance."""
-        return f"{self.name} ({self.year}) : ${self.cost:.2f}"
+        return f"{self.name} ({self.year}) : ${self.cost:.2f} added."
