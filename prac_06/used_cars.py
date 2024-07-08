@@ -14,11 +14,11 @@ def main():
     print(f"{my_car.name} has fuel: {my_car.fuel}")
     print(my_car)
 
-    limo = Car(fuel=100, name="Limo")
-    limo.add_fuel(20)
-    print(f"{limo.name} has fuel: {limo.fuel}")
-    limo.drive(115)
-    print(limo)
+    my_car = Car(fuel=100, name="Limo")
+    my_car.add_fuel(20)
+    print(f"{my_car.name} has fuel: {my_car.fuel}")
+    my_car.drive(115)
+    print(my_car)
 
 
 main()
