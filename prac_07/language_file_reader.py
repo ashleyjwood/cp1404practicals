@@ -9,6 +9,8 @@ from collections import namedtuple
 
 from programming_language import ProgrammingLanguage
 
+print("Built-in handling".upper())
+
 
 def main():
     """Read file of programming language details, save as objects, display."""
@@ -40,6 +42,7 @@ def main():
 
 
 main()
+print("\nUsing CSV".upper())
 
 
 def using_csv():
@@ -54,7 +57,8 @@ def using_csv():
     in_file.close()
 
 
-# using_csv()
+using_csv()
+print("\nUsing namedtuple".upper())
 
 
 def using_namedtuple():
@@ -73,7 +77,8 @@ def using_namedtuple():
     in_file.close()
 
 
-# using_namedtuple()
+using_namedtuple()
+print("\nUsing CSV and namedtuple".upper())
 
 
 def using_csv_namedtuple():
@@ -85,4 +90,5 @@ def using_csv_namedtuple():
         print(language.name, 'was released in', language.year)
         print(repr(language))
 
-# using_csv_namedtuple()
+
+using_csv_namedtuple()
