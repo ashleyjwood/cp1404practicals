@@ -17,3 +17,6 @@ class Guitar:
     def __repr__(self):
         """Return a string representation of the instance."""
         return f"{self.name} ({self.year}) : ${self.cost:.2f} added."
+
+    def __lt__(self, other):
+        return self.year < other.year
