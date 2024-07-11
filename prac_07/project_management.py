@@ -6,8 +6,6 @@ Actual Time:
 from project import Project
 import datetime
 
-FILENAME = "projects.txt"
-
 NAME_INDEX = 0
 DATE_INDEX = 1
 PRIORITY_INDEX = 2
@@ -26,14 +24,14 @@ MENU = """- (L)oad projects
 def main():
     """Main docstring."""
     print("Welcome to Pythonic Project Management")
-    projects = load_entries()
+    projects = []
     print(MENU)
     choice = input(">>> ").upper()
     while choice != "Q":
         if choice == "L":
-            pass
+            projects = load_entries()
         elif choice == "S":
-            pass
+            save_entries(projects)
         elif choice == "D":
             print_entries(projects)
         elif choice == "F":
@@ -46,24 +44,24 @@ def main():
             print("Invalid menu choice")
         print(MENU)
         choice = input(">>> ").upper()
-    save_entries(projects)
     print("Thank you for using custom-built project management software.")
 
 
 def load_entries():
     """Read entries from a file."""
     projects = []
+    filename = f"{input("Textfile name: ")}.txt"  # Assumed: .txt file with \t delimiters
     try:
-        with open(FILENAME, "r", encoding="utf-8") as in_file:
+        with open(filename, "r", encoding="utf-8") as in_file:
             in_file.readline()
             for line in in_file:
                 parts = line.split('\t')
-                name, start_date, priority, cost_estimate, completion_percentage = parts
-                projects.append(Project(name, start_date, int(priority), float(cost_estimate), int(completion_percentage)))
+                name, start_date, priority, cost_estimate, completion_percent = parts
+                projects.append(Project(name, start_date, int(priority), float(cost_estimate), int(completion_percent)))
             projects.sort()
             print(f"{len(projects)} projects loaded.")
     except FileNotFoundError:
-        print(f"{FILENAME} not found.")
+        print(f"{filename} not found.")
     return projects
 
 
@@ -107,12 +105,12 @@ def add_entry(projects):
     name = get_valid_string("Name: ")
     start_date = get_valid_string("Start Date: ")
     priority = get_valid_number("Priority: ")
-    cost_estimate = get_valid_number("Cost Estimate: ")
-    completion_percentage = 0
+    cost_estimate = float(get_valid_number("Cost Estimate: "))
+    completion_percent = 0
 
-    projects.append([name, start_date, priority, cost_estimate, completion_percentage])
+    projects.append(Project(name, start_date, priority, cost_estimate, completion_percent))
     projects.sort()
-    print(f"{name} {start_date} {priority} {cost_estimate} {completion_percentage} added.")
+    print(f"{name} {start_date} {priority} {cost_estimate} {completion_percent} added.")
 
 
 def print_entries(projects):
@@ -136,13 +134,14 @@ def print_entries(projects):
 
 def save_entries(projects):
     """Save the entry list to a CSV file."""
-    with open(FILENAME, "w", encoding="utf-8") as out_file:
+    filename = f"{input("Textfile name to save: ")}.txt"
+    with open(filename, "w", encoding="utf-8") as out_file:
         out_file.write("Name\tStart Date\tPriority\tCost Estimate\tCompletion Percentage\n")
         for project in projects:
             out_file.write(
                 f"{project.name}\t{project.start_date}\t{project.priority}\t"
                 f"{project.cost_estimate}\t{project.completion_percent}\n")
-    print(f"{len(projects)} saved to {FILENAME}")
+    print(f"{len(projects)} saved to {filename}")
 
 
 if __name__ == '__main__':
