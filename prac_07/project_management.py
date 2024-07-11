@@ -37,7 +37,7 @@ def main():
         elif choice == "F":
             pass
         elif choice == "A":
-            pass
+            add_entry(projects)
         elif choice == "U":
             pass
         else:
