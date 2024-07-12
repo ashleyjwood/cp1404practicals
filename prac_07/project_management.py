@@ -22,7 +22,7 @@ MENU = """- (L)oad projects
 
 
 def main():
-    """Main docstring."""
+    """Program to keep track of your projects, modify priority and completion percentage, and save to a .txt file."""
     print("Welcome to Pythonic Project Management")
     projects = []
     print(MENU)
@@ -39,7 +39,7 @@ def main():
         elif choice == "A":
             add_entry(projects)
         elif choice == "U":
-            pass
+            update_project(projects)
         else:
             print("Invalid menu choice")
         print(MENU)
@@ -80,8 +80,8 @@ def get_valid_number(prompt):
     while not is_valid_number:
         try:
             number = int(input(prompt))
-            if number <= 0:
-                print("Input must be > 0")
+            if number < 0:
+                print("Input must be >= 0")
             else:
                 is_valid_number = True
         except ValueError:
@@ -93,7 +93,7 @@ def get_valid_entry_number(projects):
     """Get an entry number from the list."""
     entry_number = get_valid_number(">>> ")
 
-    while not entry_number <= len(projects):
+    while not 0 < entry_number <= len(projects):
         print("Invalid entry number")
         entry_number = get_valid_number(">>> ")
 
@@ -110,26 +110,74 @@ def add_entry(projects):
 
     projects.append(Project(name, start_date, priority, cost_estimate, completion_percent))
     projects.sort()
-    print(f"{name} {start_date} {priority} {cost_estimate} {completion_percent} added.")
+    print(f"Project '{name}' added successfully with start date {start_date}, priority {priority}, "
+          f"cost estimate ${cost_estimate:,.2f}, and completion percentage {completion_percent}%.")
 
 
 def print_entries(projects):
     """Print the entry list (sorted by priority) and information about the entries."""
+    while not projects:
+        print("Project list cannot be blank")
+        return None
     print("Incomplete Projects: ")
     incomplete_projects = [project for project in projects if project.completion_percent != 100]
-    for entry_number, project in enumerate(incomplete_projects):
-        print(
-            f"{(entry_number + 1):1}. {project.name}, start: {project.start_date}, "
-            f"priority {project.priority}, estimate: ${project.cost_estimate}, "
-            f"completion: {project.completion_percent}%")
+    print_entries_layout(incomplete_projects)
 
     print("\nCompleted Projects: ")
     completed_projects = [project for project in projects if project.completion_percent == 100]
-    for entry_number, project in enumerate(completed_projects):
+    print_entries_layout(completed_projects)
+
+
+def print_entries_layout(projects):
+    """Define the layout for the entries when printed."""
+    for entry_number, project in enumerate(projects):
         print(
             f"{(entry_number + 1):1}. {project.name}, start: {project.start_date}, "
-            f"priority {project.priority}, estimate: ${project.cost_estimate}, "
-            f"completion: {project.completion_percent}%\n")
+            f"priority {project.priority}, estimate: ${project.cost_estimate:,.2f}, "
+            f"completion: {project.completion_percent}%")
+
+
+def update_project(projects):
+    """Update priority or completion percentage of a project."""
+    if not projects:
+        print("No projects to update.")
+        return
+
+    incomplete_projects = [project for project in projects if project.completion_percent != 100]
+
+    print("Select project number to update: ")
+    for i, project in enumerate(incomplete_projects):
+        print(f"{i + 1}. {project.name}")
+    project_number = get_valid_entry_number(incomplete_projects) - 1
+
+    project_to_update = incomplete_projects[project_number]
+    print(f"Selected project: {project_to_update.name}")
+
+    print("Update (P)riority or (C)ompletion percentage?")
+    update_project_menu(project_to_update)
+
+    projects.sort()
+    print(f"Project '{project_to_update.name}' updated.")
+
+
+def update_project_menu(project_to_update):
+    """Menu to update the priority and completion percentage."""
+    choice = input(">>> ").upper()
+    is_valid_choice = False
+    while not is_valid_choice:
+        if choice == "P":
+            print(f"Current priority is: {project_to_update.priority}")
+            new_priority = get_valid_number("New priority: ")
+            project_to_update.priority = new_priority
+            is_valid_choice = True
+        elif choice == "C":
+            print(f"Current completion percentage is: {project_to_update.completion_percent}%")
+            new_completion = get_valid_number("New completion percentage: ")
+            project_to_update.completion_percent = new_completion
+            is_valid_choice = True
+        else:
+            print("Invalid choice")
+            choice = input(">>> ").upper()
 
 
 def save_entries(projects):
