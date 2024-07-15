@@ -35,7 +35,7 @@ def main():
         elif choice == "D":
             print_entries(projects)
         elif choice == "F":
-            pass
+            filter_projects_by_date(projects)
         elif choice == "A":
             add_entry(projects)
         elif choice == "U":
@@ -50,7 +50,7 @@ def main():
 def load_entries():
     """Read entries from a file."""
     projects = []
-    filename = f"{input("Textfile name: ")}.txt"  # Assumed: .txt file with \t delimiters
+    filename = f"{input(f"Textfile name: ")}.txt"  # Assumed: .txt file with \t delimiters
     try:
         with open(filename, "r", encoding="utf-8") as in_file:
             in_file.readline()
@@ -102,10 +102,11 @@ def get_valid_entry_number(projects):
 
 def add_entry(projects):
     """Add a new entry to the list and sort the list based selected indices."""
+    print("Let's add a new project")
     name = get_valid_string("Name: ")
-    start_date = get_valid_string("Start Date: ")
+    start_date = get_valid_string("Start Date (DD/MM/YYYY): ")
     priority = get_valid_number("Priority: ")
-    cost_estimate = float(get_valid_number("Cost Estimate: "))
+    cost_estimate = float(get_valid_number("Cost Estimate: $"))
     completion_percent = 0
 
     projects.append(Project(name, start_date, priority, cost_estimate, completion_percent))
@@ -126,13 +127,14 @@ def print_entries(projects):
     print("\nCompleted Projects: ")
     completed_projects = [project for project in projects if project.completion_percent == 100]
     print_entries_layout(completed_projects)
+    print()  # Spacing for readability
 
 
 def print_entries_layout(projects):
     """Define the layout for the entries when printed."""
-    for entry_number, project in enumerate(projects):
+    for project in projects:
         print(
-            f"{(entry_number + 1):1}. {project.name}, start: {project.start_date}, "
+            f"  {project.name}, start: {project.start_date}, "
             f"priority {project.priority}, estimate: ${project.cost_estimate:,.2f}, "
             f"completion: {project.completion_percent}%")
 
@@ -143,14 +145,12 @@ def update_project(projects):
         print("No projects to update.")
         return
 
-    incomplete_projects = [project for project in projects if project.completion_percent != 100]
-
     print("Select project number to update: ")
-    for i, project in enumerate(incomplete_projects):
+    for i, project in enumerate(projects):
         print(f"{i + 1}. {project.name}")
-    project_number = get_valid_entry_number(incomplete_projects) - 1
+    project_number = get_valid_entry_number(projects) - 1
 
-    project_to_update = incomplete_projects[project_number]
+    project_to_update = projects[project_number]
     print(f"Selected project: {project_to_update.name}")
 
     print("Update (P)riority or (C)ompletion percentage?")
@@ -190,6 +190,19 @@ def save_entries(projects):
                 f"{project.name}\t{project.start_date}\t{project.priority}\t"
                 f"{project.cost_estimate}\t{project.completion_percent}\n")
     print(f"{len(projects)} saved to {filename}")
+
+
+def filter_projects_by_date(projects):
+    """Filter and display projects that start after a given date."""
+    DATE_FORMAT = "%d/%m/%Y"
+    date_string = get_valid_string("Show projects that start after date (DD/MM/YYYY): ")
+    try:
+        filter_date = datetime.datetime.strptime(date_string, DATE_FORMAT).date()
+        filtered_projects = [project for project in projects if
+                             datetime.datetime.strptime(project.start_date, DATE_FORMAT).date() > filter_date]
+        print_entries(filtered_projects)
+    except ValueError:
+        print("Invalid date format. Please use DD/MM/YYYY.")
 
 
 if __name__ == '__main__':

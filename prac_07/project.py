@@ -1,8 +1,8 @@
-import datetime
+from datetime import date
 
 
 class Project:
-    def __init__(self, name="", start_date=datetime.date, priority=0, cost_estimate=0.0, completion_percent=0):
+    def __init__(self, name="", start_date=date, priority=0, cost_estimate=0.0, completion_percent=0):
         self.name = name
         self.start_date = start_date
         self.priority = priority
@@ -16,4 +16,3 @@ class Project:
         if self.priority == other.priority:
             return self.name < other.name
         return self.priority < other.priority
-

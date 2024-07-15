@@ -1,0 +1,7 @@
+Name	Start Date	Priority	Cost Estimate	Completion Percentage
+Clean house	01/01/2024	4	0.0	0
+Weed garden	02/02/2023	3	10.0	15
+Build a new house	10/10/2023	1	500000.0	100
+Write a book	05/05/2023	5	1000.0	100
+Paint the garage	07/07/2023	2	500.0	100
+Design a website	08/08/2023	6	2000.0	50
