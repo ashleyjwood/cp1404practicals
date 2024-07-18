@@ -194,12 +194,12 @@ def save_entries(projects):
 
 def filter_projects_by_date(projects):
     """Filter and display projects that start after a given date."""
-    DATE_FORMAT = "%d/%m/%Y"
+    date_format = "%d/%m/%Y"
     date_string = get_valid_string("Show projects that start after date (DD/MM/YYYY): ")
     try:
-        filter_date = datetime.datetime.strptime(date_string, DATE_FORMAT).date()
+        filter_date = datetime.datetime.strptime(date_string, date_format).date()
         filtered_projects = [project for project in projects if
-                             datetime.datetime.strptime(project.start_date, DATE_FORMAT).date() > filter_date]
+                             datetime.datetime.strptime(project.start_date, date_format).date() > filter_date]
         print_entries(filtered_projects)
     except ValueError:
         print("Invalid date format. Please use DD/MM/YYYY.")
