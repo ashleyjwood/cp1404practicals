@@ -14,9 +14,10 @@ __author__ = 'Lindsay Ward'
 
 class SquareNumberApp(App):
     """ SquareNumberApp is a Kivy App for squaring a number """
+
     def build(self):
         """ build the Kivy app from the kv file """
-        Window.size = (200, 100)
+        Window.size = (500, 300)
         self.title = "Square Number"
         self.root = Builder.load_file('squaring.kv')
         return self.root
@@ -24,10 +25,10 @@ class SquareNumberApp(App):
     def handle_calculate(self, value):
         """ handle calculation (could be button press or other call), output result to label widget """
         try:
-            result = float(value) ** 2
-            self.root.ids.output_label.text = str(result)
+            result = f"{float(value) ** 2:.3f}"  # Round the result to 3 decimal places
+            self.root.ids.output_label.text = result
         except ValueError:
-            pass
+            self.root.ids.output_label.text = "Value\nError"
 
 
 SquareNumberApp().run()
