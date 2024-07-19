@@ -21,6 +21,3 @@ programming patterns that can help in writing efficient and clean code.
 
 [**CP1404 Practicals:**](https://github.com/CP1404/Practicals) The official repository for CP1404 practicals, providing
 resources and examples.
-
-[**Kivy Demos:**](https://github.com/CP1404/KivyDemos) This repository offers an extensive collection of demonstrations
-utilising Kivy, curated by the CP1404 staff.
