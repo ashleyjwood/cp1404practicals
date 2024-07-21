@@ -1,34 +1,41 @@
 BoxLayout:
     orientation: "vertical"
+
     BoxLayout:
         orientation: "horizontal"
+
         TextInput:
             id: input_number
-            text: "34"  # Default value
+            text: "0.0"  # Default value
             font_size: 48
             multiline: False
             size_hint_x: 0.75
+            on_text: app.calculate_conversion()
+
         BoxLayout:
             orientation: "vertical"
             size_hint_x: 0.25
+
             Button:
                 id: mile_up
                 text: "Up"
                 font_size: 30
-                on_release: app.handle_increment("mile_up")
+                on_release: app.handle_increment(1)
+
             Button:
                 id: mile_down
                 text: "Down"
                 font_size: 30
-                on_release: app.handle_increment("mile_down")
+                on_release: app.handle_increment(-1)
 
     Button:
         id: convert_button
         text: "Convert miles to km"
-        on_release: app.convert_distance()
+        on_release: app.calculate_conversion()
+
 
     Label:
-        text: "54.71756"  # Default converted value
-        color: (1,1,0,1)
         id: output_label
+        text: "0.00000"  # Default "converted" value with consistent decimal places
+        color: (1,1,0,1)
         font_size: 48
