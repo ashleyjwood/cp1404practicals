@@ -1,16 +1,19 @@
 from kivy.app import App
 from kivy.lang import Builder
+from kivy.properties import StringProperty
 
 DISTANCE_CONVERSION = 1.60934  # Constant used to convert miles to kms
 
 
 class ConvertMilesToKms(App):
     """Kivy App for converting miles to kilometers."""
+    input = StringProperty()
 
     def build(self):
         """Build the Kivy app from the kv file."""
         self.title = "Convert Miles to Kilometres"
         self.root = Builder.load_file('convert_miles_km.kv')
+        self.input = "0.0"  # Default value
         return self.root
 
     def calculate_conversion(self):
@@ -22,7 +25,7 @@ class ConvertMilesToKms(App):
     def handle_increment(self, speed_delta):
         """Handle +ve or -ve increment button press."""
         miles = self.get_valid_input() + speed_delta
-        self.root.ids.input_number.text = str(miles)
+        self.input = str(miles)
         self.calculate_conversion()
 
     def get_valid_input(self):

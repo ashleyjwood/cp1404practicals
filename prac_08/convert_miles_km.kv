@@ -6,11 +6,11 @@ BoxLayout:
 
         TextInput:
             id: input_number
-            text: "0.0"  # Default value
+            text: app.input  # Default value
             font_size: 48
             multiline: False
             size_hint_x: 0.75
-            on_text: app.calculate_conversion()
+            on_text_validate: app.calculate_conversion()
 
         BoxLayout:
             orientation: "vertical"
