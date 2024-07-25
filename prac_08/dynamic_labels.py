@@ -5,6 +5,7 @@ from kivy.uix.label import Label
 
 class DynamicLabels(App):
     """Simple Kivy app which creates labels from a list of names."""
+
     def __init__(self, **kwargs):
         """Initialise the app."""
         super().__init__(**kwargs)

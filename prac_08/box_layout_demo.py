@@ -2,7 +2,9 @@ from kivy.app import App
 from kivy.lang import Builder
 
 
-class BoxLayoutDemo(App):
+class BoxLayoutDemoApp(App):
+    """An app which demonstrates a simple box layout with linking between widgets."""
+
     def build(self):
         """Build the app."""
         self.title = "Box Layout Demo"
@@ -20,4 +22,4 @@ class BoxLayoutDemo(App):
         self.root.ids.input_name.text = ""
 
 
-BoxLayoutDemo().run()
+BoxLayoutDemoApp().run()
