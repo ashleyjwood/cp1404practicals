@@ -71,12 +71,25 @@ doctest.testmod()
 # then write the body of the function so that the tests pass
 
 def format_phrase(phrase):
+    """Format the phrase as a sentence, starting with a capital and ending with a single full stop."""
     formatted = phrase.capitalize()
     if not formatted.endswith("."):
         formatted += "."
-        return formatted
+    return formatted
 
 
-assert format_phrase("hello") == "Hello."
-assert format_phrase("It is an ex parrot") == "It is an ex parrot."
-assert format_phrase("hello world") == "Hello world."
+def test_format_phrase():
+    """
+    Run tests on the function.
+    >>> format_phrase("hello.")
+    'Hello.'
+    >>> format_phrase("It is an ex parrot")
+    'It is an ex parrot.'
+    >>> format_phrase("hello world")
+    'Hello world.'
+    """
+
+
+test_format_phrase()
+
+doctest.testmod()
